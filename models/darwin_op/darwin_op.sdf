@@ -1,0 +1,1605 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<sdf version='1.6'>
+  <model name='darwin_op'>
+    <static>0</static>
+    <link name='base_link'>
+      <inertial>
+        <pose>-0.003 0 -0.019 0 -0 0</pose>
+        <mass>0.975</mass>
+        <inertia>
+          <ixx>2.34e-3</ixx>
+          <ixy>-0</ixy>
+          <ixz>0</ixz>
+          <iyy>2.34e-3</iyy>
+          <iyz>0</iyz>
+          <izz>2.34e-3</izz>
+        </inertia>
+      </inertial>
+      <collision name='base_link_fixed_joint_lump__body_link_collision'>
+        <pose>0 0 0 0 0 -1.5708</pose>
+        <geometry>
+          <mesh>
+            <scale>0.001 0.001 0.001</scale>
+            <uri>file://darwin_op/meshes/collision/geo_op_collide_body.stl</uri>
+          </mesh>
+        </geometry>
+        <surface>
+          <contact>
+            <ode/>
+          </contact>
+          <friction>
+            <ode>
+              <mu>0.6</mu>
+              <mu2>0.7</mu2>
+              <slip1>0.045</slip1>
+              <slip2>0.0001</slip2>
+            </ode>
+          </friction>
+        </surface>
+      </collision>
+      <visual name='base_link_fixed_joint_lump__body_link_visual'>
+        <pose>0 0 0 0 0 -1.5708</pose>
+        <geometry>
+          <mesh>
+            <scale>0.001 0.001 0.001</scale>
+            <uri>file://darwin_op/meshes/visual/geo_op_body.dae</uri>
+          </mesh>
+        </geometry>
+        <material>
+          <ambient>0.1 0.1 0.1</ambient>
+          <diffuse>0.5 0.5 0.5</diffuse>
+        </material>
+        <material>
+          <ambient>0.1 0.1 0.1</ambient>
+          <diffuse>0.5 0.5 0.5</diffuse>
+        </material>
+        <cast_shadows>1</cast_shadows>
+      </visual>
+      <sensor name="body_imu" type="imu">
+        <always_on>1</always_on>
+        <update_rate>100</update_rate>
+        <visualize>false</visualize>
+        <imu>
+          <x>
+            <noise>
+              <type>gaussian</type>
+              <mean>0.0</mean>
+              <stddev>0.65</stddev>
+            </noise>
+          </x>
+          <y>
+            <noise>
+              <type>gaussian</type>
+              <mean>0.0</mean>
+              <stddev>0.65</stddev>
+            </noise>
+          </y>
+          <z>
+            <noise>
+              <type>gaussian</type>
+              <mean>0.0</mean>
+              <stddev>0.8</stddev>
+            </noise>
+          </z>
+        </imu>
+      </sensor>
+      <gravity>1</gravity>
+      <velocity_decay/>
+      <self_collide>1</self_collide>
+    </link>
+    <joint name='head_pan' type='revolute'>
+      <pose relative_to='base_link'>0 0 0.0205 0 -0 0</pose>
+      <parent>base_link</parent>
+      <child>head_pan_link</child>
+      <axis>
+        <xyz>0 0 1</xyz>
+        <limit>
+          <lower>-2.61799</lower>
+          <upper>2.61799</upper>
+          <effort>2.5</effort>
+          <velocity>4.4505895926</velocity>
+        </limit>
+        <dynamics>
+          <damping>0.0003</damping>
+          <friction>0.046</friction>
+          <spring_reference>0.0000456</spring_reference>
+          <spring_stiffness>0.0000123</spring_stiffness>
+        </dynamics>
+      </axis>
+    </joint>
+    <link name='head_pan_link'>
+      <pose relative_to='head_pan'>0 0 0 0 -0 0</pose>
+      <inertial>
+        <pose>0 0 0 0 -0 0</pose>
+        <mass>0.0243</mass>
+        <inertia>
+          <ixx>1e-5</ixx>
+          <ixy>0</ixy>
+          <ixz>0</ixz>
+          <iyy>1e-5</iyy>
+          <iyz>0</iyz>
+          <izz>1e-5</izz>
+        </inertia>
+      </inertial>
+      <collision name='head_pan_link_collision'>
+        <pose>0 0 0.03 0 0 -1.5708</pose>
+        <geometry>
+          <mesh>
+            <scale>0.001 0.001 0.001</scale>
+            <uri>file://darwin_op/meshes/collision/geo_op_collide_neck.stl</uri>
+          </mesh>
+        </geometry>
+        <surface>
+          <contact>
+            <ode/>
+          </contact>
+          <friction>
+            <ode>
+              <mu>0.6</mu>
+              <mu2>0.7</mu2>
+              <slip1>0.045</slip1>
+              <slip2>0.0001</slip2>
+            </ode>
+          </friction>
+        </surface>
+      </collision>
+      <visual name='head_pan_link_visual'>
+        <pose>0 0 0.03 0 0 -1.5708</pose>
+        <geometry>
+          <mesh>
+            <scale>0.001 0.001 0.001</scale>
+            <uri>file://darwin_op/meshes/visual/geo_op_neck.dae</uri>
+          </mesh>
+        </geometry>
+        <material>
+          <ambient>0.1 0.1 0.1</ambient>
+          <diffuse>0.5 0.5 0.5</diffuse>
+        </material>
+        <material>
+          <ambient>0.1 0.1 0.1</ambient>
+          <diffuse>0.5 0.5 0.5</diffuse>
+        </material>
+        <cast_shadows>1</cast_shadows>
+      </visual>
+      <gravity>1</gravity>
+      <velocity_decay/>
+      <self_collide>0</self_collide>
+    </link>
+    <joint name='head_tilt' type='revolute'>
+      <pose relative_to='head_pan_link'>0 0 0.03 0 0.575959 0</pose>
+      <parent>head_pan_link</parent>
+      <child>head_tilt_link</child>
+      <axis>
+        <xyz>0 1 0</xyz>
+        <limit>
+          <lower>-2.61799</lower>
+          <upper>2.61799</upper>
+          <effort>2.5</effort>
+          <velocity>4.4505895926</velocity>
+        </limit>
+        <dynamics>
+          <damping>0.0003</damping>
+          <friction>0.046</friction>
+          <spring_reference>0.0000456</spring_reference>
+          <spring_stiffness>0.0000123</spring_stiffness>
+        </dynamics>
+      </axis>
+    </joint>
+    <link name='head_tilt_link'>
+      <pose relative_to='head_tilt'>0 0 0 0 -0 0</pose>
+      <inertial>
+        <pose>0 0 0 0 -0 0</pose>
+        <mass>0.158</mass>
+        <inertia>
+          <ixx>1.58e-4</ixx>
+          <ixy>0</ixy>
+          <ixz>0</ixz>
+          <iyy>1.58e-4</iyy>
+          <iyz>0</iyz>
+          <izz>1.58e-4</izz>
+        </inertia>
+      </inertial>
+      <collision name='head_tilt_link_collision'>
+        <pose>0 0 0 3.14159 -0 -1.5708</pose>
+        <geometry>
+          <mesh>
+            <scale>0.001 0.001 0.001</scale>
+            <uri>file://darwin_op/meshes/collision/geo_op_collide_head.stl</uri>
+          </mesh>
+        </geometry>
+        <surface>
+          <contact>
+            <ode/>
+          </contact>
+          <friction>
+            <ode>
+              <mu>0.6</mu>
+              <mu2>0.7</mu2>
+              <slip1>0.045</slip1>
+              <slip2>0.0001</slip2>
+            </ode>
+          </friction>
+        </surface>
+      </collision>
+      <visual name='head_tilt_link_visual'>
+        <pose>0 0 0 3.14159 -0 -1.5708</pose>
+        <geometry>
+          <mesh>
+            <scale>0.001 0.001 0.001</scale>
+            <uri>file://darwin_op/meshes/visual/geo_op_head.dae</uri>
+          </mesh>
+        </geometry>
+        <material>
+          <ambient>0.1 0.1 0.1</ambient>
+          <diffuse>0.5 0.5 0.5</diffuse>
+        </material>
+        <material>
+          <ambient>0.1 0.1 0.1</ambient>
+          <diffuse>0.5 0.5 0.5</diffuse>
+        </material>
+        <cast_shadows>1</cast_shadows>
+      </visual>
+      <velocity_decay/>
+      <self_collide>1</self_collide>
+      <gravity>1</gravity>
+      <sensor name='camera' type='camera'>
+        <camera>
+          <horizontal_fov>1.0123</horizontal_fov>
+          <image>
+            <width>320</width>
+            <height>200</height>
+          </image>
+          <clip>
+            <near>0.001</near>
+            <far>100</far>
+          </clip>
+          <noise>
+            <type>gaussian</type>
+            <mean>0.0</mean>
+            <stddev>0.015</stddev>
+          </noise>
+        </camera>
+        <always_on>1</always_on>
+        <update_rate>30</update_rate>
+        <visualize>1</visualize>
+        <pose>0.0332 0 0.0344 0 -0 0</pose>
+      </sensor>
+    </link>
+    <joint name='l_hip_yaw' type='revolute'>
+      <pose relative_to='base_link'>-0.005 0.037 -0.0907 0 -0 0</pose>
+      <parent>base_link</parent>
+      <child>l_hip_yaw_link</child>
+      <axis>
+        <xyz>0 0 1</xyz>
+        <limit>
+          <lower>-2.61799</lower>
+          <upper>2.61799</upper>
+          <effort>2.5</effort>
+          <velocity>4.4505895926</velocity>
+        </limit>
+        <dynamics>
+          <damping>0.0003</damping>
+          <friction>0.046</friction>
+          <spring_reference>0.0000456</spring_reference>
+          <spring_stiffness>0.0000123</spring_stiffness>
+        </dynamics>
+      </axis>
+    </joint>
+    <link name='l_hip_yaw_link'>
+      <pose relative_to='l_hip_yaw'>0 0 0 0 -0 0</pose>
+      <inertial>
+        <pose>0 0 0 0 -0 0</pose>
+        <mass>0.167</mass>
+        <inertia>
+          <ixx>1e-5</ixx>
+          <ixy>0</ixy>
+          <ixz>0</ixz>
+          <iyy>1e-5</iyy>
+          <iyz>0</iyz>
+          <izz>1e-5</izz>
+        </inertia>
+      </inertial>
+      <collision name='l_hip_yaw_link_collision'>
+        <pose>0 0 0 0 0 -1.5708</pose>
+        <geometry>
+          <mesh>
+            <scale>0.001 0.001 0.001</scale>
+            <uri>file://darwin_op/meshes/collision/geo_op_collide_left_hip-yaw.stl</uri>
+          </mesh>
+        </geometry>
+        <surface>
+          <contact>
+            <ode/>
+          </contact>
+          <friction>
+            <ode>
+              <mu>0.6</mu>
+              <mu2>0.7</mu2>
+              <slip1>0.045</slip1>
+              <slip2>0.0001</slip2>
+            </ode>
+          </friction>
+        </surface>
+      </collision>
+      <visual name='l_hip_yaw_link_visual'>
+        <pose>0 0 0 0 0 -1.5708</pose>
+        <geometry>
+          <mesh>
+            <scale>0.001 0.001 0.001</scale>
+            <uri>file://darwin_op/meshes/visual/geo_op_left_hip-yaw.dae</uri>
+          </mesh>
+        </geometry>
+        <material>
+          <ambient>0.1 0.1 0.1</ambient>
+          <diffuse>0.5 0.5 0.5</diffuse>
+        </material>
+        <material>
+          <ambient>0.1 0.1 0.1</ambient>
+          <diffuse>0.5 0.5 0.5</diffuse>
+        </material>
+        <cast_shadows>1</cast_shadows>
+      </visual>
+      <gravity>1</gravity>
+      <velocity_decay/>
+      <self_collide>0</self_collide>
+    </link>
+    <joint name='l_hip_roll' type='revolute'>
+      <pose relative_to='l_hip_yaw_link'>0 0 -0.0315 0 -0 0</pose>
+      <parent>l_hip_yaw_link</parent>
+      <child>l_hip_roll_link</child>
+      <axis>
+        <xyz>1 0 0</xyz>
+        <limit>
+          <lower>-2.61799</lower>
+          <upper>2.61799</upper>
+          <effort>2.5</effort>
+          <velocity>4.4505895926</velocity>
+        </limit>
+        <dynamics>
+          <damping>0.0003</damping>
+          <friction>0.046</friction>
+          <spring_reference>0.0000456</spring_reference>
+          <spring_stiffness>0.0000123</spring_stiffness>
+        </dynamics>
+      </axis>
+    </joint>
+    <link name='l_hip_roll_link'>
+      <pose relative_to='l_hip_roll'>0 0 0 0 -0 0</pose>
+      <inertial>
+        <pose>-0.02 0 0 0 -0 0</pose>
+        <mass>0.119</mass>
+        <inertia>
+          <ixx>0.486e-4</ixx>
+          <ixy>0</ixy>
+          <ixz>0</ixz>
+          <iyy>0.486e-4</iyy>
+          <iyz>0</iyz>
+          <izz>0.486e-4</izz>
+        </inertia>
+      </inertial>
+      <collision name='l_hip_roll_link_collision'>
+        <pose>0 0 0 0 0 -1.5708</pose>
+        <geometry>
+          <mesh>
+            <scale>0.001 0.001 0.001</scale>
+            <uri>file://darwin_op/meshes/collision/geo_op_collide_left_hip-roll.stl</uri>
+          </mesh>
+        </geometry>
+        <surface>
+          <contact>
+            <ode/>
+          </contact>
+          <friction>
+            <ode>
+              <mu>0.6</mu>
+              <mu2>0.7</mu2>
+              <slip1>0.045</slip1>
+              <slip2>0.0001</slip2>
+            </ode>
+          </friction>
+        </surface>
+      </collision>
+      <visual name='l_hip_roll_link_visual'>
+        <pose>0 0 0 0 0 -1.5708</pose>
+        <geometry>
+          <mesh>
+            <scale>0.001 0.001 0.001</scale>
+            <uri>file://darwin_op/meshes/visual/geo_op_left_hip-roll.dae</uri>
+          </mesh>
+        </geometry>
+        <material>
+          <ambient>0.1 0.1 0.1</ambient>
+          <diffuse>0.5 0.5 0.5</diffuse>
+        </material>
+        <material>
+          <ambient>0.1 0.1 0.1</ambient>
+          <diffuse>0.5 0.5 0.5</diffuse>
+        </material>
+        <cast_shadows>1</cast_shadows>
+      </visual>
+      <gravity>1</gravity>
+      <velocity_decay/>
+      <self_collide>1</self_collide>
+    </link>
+    <joint name='l_hip_pitch' type='revolute'>
+      <pose relative_to='l_hip_roll_link'>0 0 0 0 -0 0</pose>
+      <parent>l_hip_roll_link</parent>
+      <child>l_hip_pitch_link</child>
+      <axis>
+        <xyz>0 1 0</xyz>
+        <limit>
+          <lower>-2.61799</lower>
+          <upper>2.61799</upper>
+          <effort>2.5</effort>
+          <velocity>4.4505895926</velocity>
+        </limit>
+        <dynamics>
+          <damping>0.0003</damping>
+          <friction>0.046</friction>
+          <spring_reference>0.0000456</spring_reference>
+          <spring_stiffness>0.0000123</spring_stiffness>
+        </dynamics>
+      </axis>
+    </joint>
+    <link name='l_hip_pitch_link'>
+      <pose relative_to='l_hip_pitch'>0 0 0 0 -0 0</pose>
+      <inertial>
+        <pose>0 0 0 0 -0 0</pose>
+        <mass>0.119</mass>
+        <inertia>
+          <ixx>5.712e-4</ixx>
+          <ixy>0</ixy>
+          <ixz>0</ixz>
+          <iyy>5.712e-4</iyy>
+          <iyz>0</iyz>
+          <izz>5.712e-4</izz>
+        </inertia>
+      </inertial>
+      <collision name='l_hip_pitch_link_collision'>
+        <pose>0 0 0 0 0 -1.5708</pose>
+        <geometry>
+          <mesh>
+            <scale>0.001 0.001 0.001</scale>
+            <uri>file://darwin_op/meshes/collision/geo_op_collide_left_thigh.stl</uri>
+          </mesh>
+        </geometry>
+        <surface>
+          <contact>
+            <ode/>
+          </contact>
+          <friction>
+            <ode>
+              <mu>0.6</mu>
+              <mu2>0.7</mu2>
+              <slip1>0.045</slip1>
+              <slip2>0.0001</slip2>
+            </ode>
+          </friction>
+        </surface>
+      </collision>
+      <visual name='l_hip_pitch_link_visual'>
+        <pose>0 0 0 0 0 -1.5708</pose>
+        <geometry>
+          <mesh>
+            <scale>0.001 0.001 0.001</scale>
+            <uri>file://darwin_op/meshes/visual/geo_op_left_thigh.dae</uri>
+          </mesh>
+        </geometry>
+        <material>
+          <ambient>0.1 0.1 0.1</ambient>
+          <diffuse>0.5 0.5 0.5</diffuse>
+        </material>
+        <cast_shadows>1</cast_shadows>
+      </visual>
+      <gravity>1</gravity>
+      <velocity_decay/>
+      <self_collide>1</self_collide>
+    </link>
+    <joint name='l_knee' type='revolute'>
+      <pose relative_to='l_hip_pitch_link'>0 0 -0.093 0 -0 0</pose>
+      <parent>l_hip_pitch_link</parent>
+      <child>l_knee_link</child>
+      <axis>
+        <xyz>0 1 0</xyz>
+        <limit>
+          <lower>-0.03490658504</lower>
+          <upper>2.61799</upper>
+          <effort>2.5</effort>
+          <velocity>4.4505895926</velocity>
+        </limit>
+        <dynamics>
+          <damping>0.0003</damping>
+          <friction>0.046</friction>
+          <spring_reference>0.0000456</spring_reference>
+          <spring_stiffness>0.0000123</spring_stiffness>
+        </dynamics>
+      </axis>
+    </joint>
+    <link name='l_knee_link'>
+      <pose relative_to='l_knee'>0 0 0 0 -0 0</pose>
+      <inertial>
+        <pose>0 0 0 0 -0 0</pose>
+        <mass>0.0703</mass>
+        <inertia>
+          <ixx>3.3744e-4</ixx>
+          <ixy>0</ixy>
+          <ixz>0</ixz>
+          <iyy>3.3744e-4</iyy>
+          <iyz>0</iyz>
+          <izz>3.3744e-4</izz>
+        </inertia>
+      </inertial>
+      <collision name='l_knee_link_collision'>
+        <pose>0 0 0 0 0 -1.5708</pose>
+        <geometry>
+          <mesh>
+            <scale>0.001 0.001 0.001</scale>
+            <uri>file://darwin_op/meshes/collision/geo_op_collide_left_shin.stl</uri>
+          </mesh>
+        </geometry>
+        <surface>
+          <contact>
+            <ode/>
+          </contact>
+          <friction>
+            <ode>
+              <mu>0.6</mu>
+              <mu2>0.7</mu2>
+              <slip1>0.045</slip1>
+              <slip2>0.0001</slip2>
+            </ode>
+          </friction>
+        </surface>
+      </collision>
+      <visual name='l_knee_link_visual'>
+        <pose>0 0 0 0 0 -1.5708</pose>
+        <geometry>
+          <mesh>
+            <scale>0.001 0.001 0.001</scale>
+            <uri>file://darwin_op/meshes/visual/geo_op_left_shin.dae</uri>
+          </mesh>
+        </geometry>
+        <material>
+          <ambient>0.1 0.1 0.1</ambient>
+          <diffuse>0.5 0.5 0.5</diffuse>
+        </material>
+        <cast_shadows>1</cast_shadows>
+      </visual>
+      <gravity>1</gravity>
+      <velocity_decay/>
+      <self_collide>1</self_collide>
+    </link>
+    <joint name='l_ank_pitch' type='revolute'>
+      <pose relative_to='l_knee_link'>0 0 -0.093 0 -0 0</pose>
+      <parent>l_knee_link</parent>
+      <child>l_ank_pitch_link</child>
+      <axis>
+        <xyz>0 1 0</xyz>
+        <limit>
+          <lower>-2.61799</lower>
+          <upper>2.61799</upper>
+          <effort>2.5</effort>
+          <velocity>4.4505895926</velocity>
+        </limit>
+        <dynamics>
+          <damping>0.0003</damping>
+          <friction>0.046</friction>
+          <spring_reference>0.0000456</spring_reference>
+          <spring_stiffness>0.0000123</spring_stiffness>
+        </dynamics>
+      </axis>
+    </joint>
+    <link name='l_ank_pitch_link'>
+      <pose relative_to='l_ank_pitch'>0 0 0 0 -0 0</pose>
+      <inertial>
+        <pose>-0.02 0 0 0 -0 0</pose>
+        <mass>0.167</mass>
+        <inertia>
+          <ixx>0.682e-4</ixx>
+          <ixy>0</ixy>
+          <ixz>0</ixz>
+          <iyy>0.682e-4</iyy>
+          <iyz>0</iyz>
+          <izz>0.682e-4</izz>
+        </inertia>
+      </inertial>
+      <collision name='l_ank_pitch_link_collision'>
+        <pose>0 0 0 0 0 -1.5708</pose>
+        <geometry>
+          <mesh>
+            <scale>0.001 0.001 0.001</scale>
+            <uri>file://darwin_op/meshes/collision/geo_op_collide_left_ankle.stl</uri>
+          </mesh>
+        </geometry>
+        <surface>
+          <contact>
+            <ode/>
+          </contact>
+          <friction>
+            <ode>
+              <mu>0.6</mu>
+              <mu2>0.7</mu2>
+              <slip1>0.045</slip1>
+              <slip2>0.0001</slip2>
+            </ode>
+          </friction>
+        </surface>
+      </collision>
+      <visual name='l_ank_pitch_link_visual'>
+        <pose>0 0 0 0 0 -1.5708</pose>
+        <geometry>
+          <mesh>
+            <scale>0.001 0.001 0.001</scale>
+            <uri>file://darwin_op/meshes/visual/geo_op_left_ankle.dae</uri>
+          </mesh>
+        </geometry>
+        <material>
+          <ambient>0.1 0.1 0.1</ambient>
+          <diffuse>0.5 0.5 0.5</diffuse>
+        </material>
+        <cast_shadows>1</cast_shadows>
+      </visual>
+      <gravity>1</gravity>
+      <velocity_decay/>
+      <self_collide>1</self_collide>
+    </link>
+    <joint name='l_ank_roll' type='revolute'>
+      <pose relative_to='l_ank_pitch_link'>0 0 0 0 -0 0</pose>
+      <parent>l_ank_pitch_link</parent>
+      <child>l_ank_roll_link</child>
+      <axis>
+        <xyz>1 0 0</xyz>
+        <limit>
+          <lower>-2.61799</lower>
+          <upper>2.61799</upper>
+          <effort>2.5</effort>
+          <velocity>4.4505895926</velocity>
+        </limit>
+        <dynamics>
+          <damping>0.0003</damping>
+          <friction>0.046</friction>
+          <spring_reference>0.0000456</spring_reference>
+          <spring_stiffness>0.0000123</spring_stiffness>
+        </dynamics>
+      </axis>
+    </joint>
+    <link name='l_ank_roll_link'>
+      <pose relative_to='l_ank_roll'>0 0 0 0 -0 0</pose>
+      <inertial>
+        <pose>0 0 0 0 -0 0</pose>
+        <mass>0.0794</mass>
+        <inertia>
+          <ixx>0.986e-4</ixx>
+          <ixy>0</ixy>
+          <ixz>0</ixz>
+          <iyy>0.986e-4</iyy>
+          <iyz>0</iyz>
+          <izz>0.986e-4</izz>
+        </inertia>
+      </inertial>
+      <collision name='l_ank_roll_link_collision'>
+        <pose>0 0 0 0 0 -1.5708</pose>
+        <geometry>
+          <mesh>
+            <scale>0.001 0.001 0.001</scale>
+            <uri>file://darwin_op/meshes/collision/geo_op_collide_left_foot.stl</uri>
+          </mesh>
+        </geometry>
+        <surface>
+          <contact>
+            <ode>
+              <kp>0.12</kp>
+              <kd>0.1</kd>
+              <min_depth>0.01</min_depth>
+            </ode>
+          </contact>
+          <friction>
+            <ode>
+              <mu>0.6</mu>
+              <mu2>0.7</mu2>
+              <slip1>0.045</slip1>
+              <slip2>0.0001</slip2>
+            </ode>
+          </friction>
+        </surface>
+        <max_contacts>1</max_contacts>
+      </collision>
+      <visual name='l_ank_roll_link_visual'>
+        <pose>0 0 0 0 0 -1.5708</pose>
+        <geometry>
+          <mesh>
+            <scale>0.001 0.001 0.001</scale>
+            <uri>file://darwin_op/meshes/visual/geo_op_left_foot.dae</uri>
+          </mesh>
+        </geometry>
+        <material>
+          <ambient>0.1 0.1 0.1</ambient>
+          <diffuse>0.5 0.5 0.5</diffuse>
+        </material>
+        <cast_shadows>1</cast_shadows>
+      </visual>
+      <gravity>1</gravity>
+      <velocity_decay/>
+      <self_collide>1</self_collide>
+    </link>
+    <joint name='l_sho_pitch' type='revolute'>
+      <pose relative_to='base_link'>0 0.0575 0 0 -0 0</pose>
+      <parent>base_link</parent>
+      <child>l_sho_pitch_link</child>
+      <axis>
+        <xyz>0 1 0</xyz>
+        <limit>
+          <lower>-2.61799</lower>
+          <upper>2.61799</upper>
+          <effort>2.5</effort>
+          <velocity>4.4505895926</velocity>
+        </limit>
+        <dynamics>
+          <damping>0.0003</damping>
+          <friction>0.046</friction>
+          <spring_reference>0.0000456</spring_reference>
+          <spring_stiffness>0.0000123</spring_stiffness>
+        </dynamics>
+      </axis>
+    </joint>
+    <link name='l_sho_pitch_link'>
+      <pose relative_to='l_sho_pitch'>0 0 0 0 -0 0</pose>
+      <inertial>
+        <pose>0 0 0 0 -0 0</pose>
+        <mass>0.0259</mass>
+        <inertia>
+          <ixx>1e-5</ixx>
+          <ixy>0</ixy>
+          <ixz>0</ixz>
+          <iyy>1e-5</iyy>
+          <iyz>0</iyz>
+          <izz>1e-5</izz>
+        </inertia>
+      </inertial>
+      <collision name='l_sho_pitch_link_collision'>
+        <pose>0 0 0 0 0 -1.5708</pose>
+        <geometry>
+          <mesh>
+            <scale>0.001 0.001 0.001</scale>
+            <uri>file://darwin_op/meshes/collision/geo_op_collide_left_shoulder.stl</uri>
+          </mesh>
+        </geometry>
+        <surface>
+          <contact>
+            <ode/>
+          </contact>
+          <friction>
+            <ode>
+              <mu>0.6</mu>
+              <mu2>0.7</mu2>
+              <slip1>0.045</slip1>
+              <slip2>0.0001</slip2>
+            </ode>
+          </friction>
+        </surface>
+      </collision>
+      <visual name='l_sho_pitch_link_visual'>
+        <pose>0 0 0 0 0 -1.5708</pose>
+        <geometry>
+          <mesh>
+            <scale>0.001 0.001 0.001</scale>
+            <uri>file://darwin_op/meshes/visual/geo_op_left_shoulder.dae</uri>
+          </mesh>
+        </geometry>
+        <material>
+          <ambient>0.1 0.1 0.1</ambient>
+          <diffuse>0.5 0.5 0.5</diffuse>
+        </material>
+        <cast_shadows>1</cast_shadows>
+      </visual>
+      <gravity>1</gravity>
+      <velocity_decay/>
+      <self_collide>0</self_collide>
+    </link>
+    <joint name='l_sho_roll' type='revolute'>
+      <pose relative_to='l_sho_pitch_link'>0 0.0245 -0.016 0.785398 -0 0</pose>
+      <parent>l_sho_pitch_link</parent>
+      <child>l_sho_roll_link</child>
+      <axis>
+        <xyz>1 0 0</xyz>
+        <limit>
+          <lower>-2.61799</lower>
+          <upper>2.61799</upper>
+          <effort>2.5</effort>
+          <velocity>4.4505895926</velocity>
+        </limit>
+        <dynamics>
+          <damping>0.0003</damping>
+          <friction>0.046</friction>
+          <spring_reference>0.0000456</spring_reference>
+          <spring_stiffness>0.0000123</spring_stiffness>
+        </dynamics>
+      </axis>
+    </joint>
+    <link name='l_sho_roll_link'>
+      <pose relative_to='l_sho_roll'>0 0 0 0 -0 0</pose>
+      <inertial>
+        <pose>0 0 0 0 -0 0</pose>
+        <mass>0.168</mass>
+        <inertia>
+          <ixx>4.536e-4</ixx>
+          <ixy>0</ixy>
+          <ixz>0</ixz>
+          <iyy>4.536e-4</iyy>
+          <iyz>0</iyz>
+          <izz>4.536e-4</izz>
+        </inertia>
+      </inertial>
+      <collision name='l_sho_roll_link_collision'>
+        <pose>0 0 0 0 0 -1.5708</pose>
+        <geometry>
+          <mesh>
+            <scale>0.001 0.001 0.001</scale>
+            <uri>file://darwin_op/meshes/collision/geo_op_collide_left_upper-arm.stl</uri>
+          </mesh>
+        </geometry>
+        <surface>
+          <contact>
+            <ode/>
+          </contact>
+          <friction>
+            <ode>
+              <mu>0.6</mu>
+              <mu2>0.7</mu2>
+              <slip1>0.045</slip1>
+              <slip2>0.0001</slip2>
+            </ode>
+          </friction>
+        </surface>
+      </collision>
+      <visual name='l_sho_roll_link_visual'>
+        <pose>0 0 0 0 0 -1.5708</pose>
+        <geometry>
+          <mesh>
+            <scale>0.001 0.001 0.001</scale>
+            <uri>file://darwin_op/meshes/visual/geo_op_left_upper-arm.dae</uri>
+          </mesh>
+        </geometry>
+        <material>
+          <ambient>0.1 0.1 0.1</ambient>
+          <diffuse>0.5 0.5 0.5</diffuse>
+        </material>
+        <cast_shadows>1</cast_shadows>
+      </visual>
+      <gravity>1</gravity>
+      <velocity_decay/>
+      <self_collide>1</self_collide>
+    </link>
+    <joint name='l_el' type='revolute'>
+      <pose relative_to='l_sho_roll_link'>0.016 0 -0.06 0 -1.5708 0</pose>
+      <parent>l_sho_roll_link</parent>
+      <child>l_el_link</child>
+      <axis>
+        <xyz>0 1 0</xyz>
+        <limit>
+          <lower>-2.61799</lower>
+          <upper>2.61799</upper>
+          <effort>2.5</effort>
+          <velocity>4.4505895926</velocity>
+        </limit>
+        <dynamics>
+          <damping>0.0003</damping>
+          <friction>0.046</friction>
+          <spring_reference>0.0000456</spring_reference>
+          <spring_stiffness>0.0000123</spring_stiffness>
+        </dynamics>
+      </axis>
+    </joint>
+    <link name='l_el_link'>
+      <pose relative_to='l_el'>0 0 0 0 -0 0</pose>
+      <inertial>
+        <pose>0 0 0 0 -0 0</pose>
+        <mass>0.0592</mass>
+        <inertia>
+          <ixx>2.38e-4</ixx>
+          <ixy>0</ixy>
+          <ixz>0</ixz>
+          <iyy>2.38e-4</iyy>
+          <iyz>0</iyz>
+          <izz>2.38e-4</izz>
+        </inertia>
+      </inertial>
+      <collision name='l_el_link_collision'>
+        <pose>0 0 0 0 0 -1.5708</pose>
+        <geometry>
+          <mesh>
+            <scale>0.001 0.001 0.001</scale>
+            <uri>file://darwin_op/meshes/collision/geo_op_collide_left_lower-arm.stl</uri>
+          </mesh>
+        </geometry>
+        <surface>
+          <contact>
+            <ode/>
+          </contact>
+          <friction>
+            <ode>
+              <mu>0.6</mu>
+              <mu2>0.7</mu2>
+              <slip1>0.045</slip1>
+              <slip2>0.0001</slip2>
+            </ode>
+          </friction>
+        </surface>
+      </collision>
+      <visual name='l_el_link_visual'>
+        <pose>0 0 0 0 0 -1.5708</pose>
+        <geometry>
+          <mesh>
+            <scale>0.001 0.001 0.001</scale>
+            <uri>file://darwin_op/meshes/visual/geo_op_left_lower-arm.dae</uri>
+          </mesh>
+        </geometry>
+        <material>
+          <ambient>0.1 0.1 0.1</ambient>
+          <diffuse>0.5 0.5 0.5</diffuse>
+        </material>
+        <cast_shadows>1</cast_shadows>
+      </visual>
+      <gravity>1</gravity>
+      <velocity_decay/>
+      <self_collide>1</self_collide>
+    </link>
+    <joint name='r_hip_yaw' type='revolute'>
+      <pose relative_to='base_link'>-0.005 -0.037 -0.0907 0 -0 0</pose>
+      <parent>base_link</parent>
+      <child>r_hip_yaw_link</child>
+      <axis>
+        <xyz>0 0 1</xyz>
+        <limit>
+          <lower>-2.61799</lower>
+          <upper>2.61799</upper>
+          <effort>2.5</effort>
+          <velocity>4.4505895926</velocity>
+        </limit>
+        <dynamics>
+          <damping>0.0003</damping>
+          <friction>0.046</friction>
+          <spring_reference>0.0000456</spring_reference>
+          <spring_stiffness>0.0000123</spring_stiffness>
+        </dynamics>
+      </axis>
+    </joint>
+    <link name='r_hip_yaw_link'>
+      <pose relative_to='r_hip_yaw'>0 0 0 0 -0 0</pose>
+      <inertial>
+        <pose>0 0 0 0 -0 0</pose>
+        <mass>0.167</mass>
+        <inertia>
+          <ixx>1e-5</ixx>
+          <ixy>0</ixy>
+          <ixz>0</ixz>
+          <iyy>1e-5</iyy>
+          <iyz>0</iyz>
+          <izz>1e-5</izz>
+        </inertia>
+      </inertial>
+      <collision name='r_hip_yaw_link_collision'>
+        <pose>0 0 0 0 0 -1.5708</pose>
+        <geometry>
+          <mesh>
+            <scale>0.001 0.001 0.001</scale>
+            <uri>file://darwin_op/meshes/collision/geo_op_collide_right_hip-yaw.stl</uri>
+          </mesh>
+        </geometry>
+        <surface>
+          <contact>
+            <ode/>
+          </contact>
+          <friction>
+            <ode>
+              <mu>0.6</mu>
+              <mu2>0.7</mu2>
+              <slip1>0.045</slip1>
+              <slip2>0.0001</slip2>
+            </ode>
+          </friction>
+        </surface>
+      </collision>
+      <visual name='r_hip_yaw_link_visual'>
+        <pose>0 0 0 0 0 -1.5708</pose>
+        <geometry>
+          <mesh>
+            <scale>0.001 0.001 0.001</scale>
+            <uri>file://darwin_op/meshes/visual/geo_op_right_hip-yaw.dae</uri>
+          </mesh>
+        </geometry>
+        <material>
+          <ambient>0.1 0.1 0.1</ambient>
+          <diffuse>0.5 0.5 0.5</diffuse>
+        </material>
+        <cast_shadows>1</cast_shadows>
+      </visual>
+      <gravity>1</gravity>
+      <velocity_decay/>
+      <self_collide>0</self_collide>
+    </link>
+    <joint name='r_hip_roll' type='revolute'>
+      <pose relative_to='r_hip_yaw_link'>0 0 -0.0315 0 -0 0</pose>
+      <parent>r_hip_yaw_link</parent>
+      <child>r_hip_roll_link</child>
+      <axis>
+        <xyz>1 0 0</xyz>
+        <limit>
+          <lower>-2.61799</lower>
+          <upper>2.61799</upper>
+          <effort>2.5</effort>
+          <velocity>4.4505895926</velocity>
+        </limit>
+        <dynamics>
+          <damping>0.0003</damping>
+          <friction>0.046</friction>
+          <spring_reference>0.0000456</spring_reference>
+          <spring_stiffness>0.0000123</spring_stiffness>
+        </dynamics>
+      </axis>
+    </joint>
+    <link name='r_hip_roll_link'>
+      <pose relative_to='r_hip_roll'>0 0 0 0 -0 0</pose>
+      <inertial>
+        <pose>-0.02 0 0 0 -0 0</pose>
+        <mass>0.119</mass>
+        <inertia>
+          <ixx>0.486e-4</ixx>
+          <ixy>0</ixy>
+          <ixz>0</ixz>
+          <iyy>0.486e-4</iyy>
+          <iyz>0</iyz>
+          <izz>0.486e-4</izz>
+        </inertia>
+      </inertial>
+      <collision name='r_hip_roll_link_collision'>
+        <pose>0 0 0 0 0 -1.5708</pose>
+        <geometry>
+          <mesh>
+            <scale>0.001 0.001 0.001</scale>
+            <uri>file://darwin_op/meshes/collision/geo_op_collide_right_hip-roll.stl</uri>
+          </mesh>
+        </geometry>
+        <surface>
+          <contact>
+            <ode/>
+          </contact>
+          <friction>
+            <ode>
+              <mu>0.6</mu>
+              <mu2>0.7</mu2>
+              <slip1>0.045</slip1>
+              <slip2>0.0001</slip2>
+            </ode>
+          </friction>
+        </surface>
+      </collision>
+      <visual name='r_hip_roll_link_visual'>
+        <pose>0 0 0 0 0 -1.5708</pose>
+        <geometry>
+          <mesh>
+            <scale>0.001 0.001 0.001</scale>
+            <uri>file://darwin_op/meshes/visual/geo_op_right_hip-roll.dae</uri>
+          </mesh>
+        </geometry>
+        <material>
+          <ambient>0.1 0.1 0.1</ambient>
+          <diffuse>0.5 0.5 0.5</diffuse>
+        </material>
+        <cast_shadows>1</cast_shadows>
+      </visual>
+      <gravity>1</gravity>
+      <velocity_decay/>
+      <self_collide>1</self_collide>
+    </link>
+    <joint name='r_hip_pitch' type='revolute'>
+      <pose relative_to='r_hip_roll_link'>0 0 0 0 -0 0</pose>
+      <parent>r_hip_roll_link</parent>
+      <child>r_hip_pitch_link</child>
+      <axis>
+        <xyz>0 1 0</xyz>
+        <limit>
+          <lower>-2.61799</lower>
+          <upper>2.61799</upper>
+          <effort>2.5</effort>
+          <velocity>4.4505895926</velocity>
+        </limit>
+        <dynamics>
+          <damping>0.0003</damping>
+          <friction>0.046</friction>
+          <spring_reference>0.0000456</spring_reference>
+          <spring_stiffness>0.0000123</spring_stiffness>
+        </dynamics>
+      </axis>
+    </joint>
+    <link name='r_hip_pitch_link'>
+      <pose relative_to='r_hip_pitch'>0 0 0 0 -0 0</pose>
+      <inertial>
+        <pose>0 0 0 0 -0 0</pose>
+        <mass>0.119</mass>
+        <inertia>
+          <ixx>5.712e-4</ixx>
+          <ixy>0</ixy>
+          <ixz>0</ixz>
+          <iyy>5.712e-4</iyy>
+          <iyz>0</iyz>
+          <izz>5.712e-4</izz>
+        </inertia>
+      </inertial>
+      <collision name='r_hip_pitch_link_collision'>
+        <pose>0 0 0 0 0 -1.5708</pose>
+        <geometry>
+          <mesh>
+            <scale>0.001 0.001 0.001</scale>
+            <uri>file://darwin_op/meshes/collision/geo_op_collide_right_thigh.stl</uri>
+          </mesh>
+        </geometry>
+        <surface>
+          <contact>
+            <ode/>
+          </contact>
+          <friction>
+            <ode>
+              <mu>0.6</mu>
+              <mu2>0.7</mu2>
+              <slip1>0.045</slip1>
+              <slip2>0.0001</slip2>
+            </ode>
+          </friction>
+        </surface>
+      </collision>
+      <visual name='r_hip_pitch_link_visual'>
+        <pose>0 0 0 0 0 -1.5708</pose>
+        <geometry>
+          <mesh>
+            <scale>0.001 0.001 0.001</scale>
+            <uri>file://darwin_op/meshes/visual/geo_op_right_thigh.dae</uri>
+          </mesh>
+        </geometry>
+        <material>
+          <ambient>0.1 0.1 0.1</ambient>
+          <diffuse>0.5 0.5 0.5</diffuse>
+        </material>
+        <cast_shadows>1</cast_shadows>
+      </visual>
+      <gravity>1</gravity>
+      <velocity_decay/>
+      <self_collide>1</self_collide>
+    </link>
+    <joint name='r_knee' type='revolute'>
+      <pose relative_to='r_hip_pitch_link'>0 0 -0.093 0 -0 0</pose>
+      <parent>r_hip_pitch_link</parent>
+      <child>r_knee_link</child>
+      <axis>
+        <xyz>0 1 0</xyz>
+        <limit>
+          <lower>-0.03490658504</lower>
+          <upper>2.61799</upper>
+          <effort>2.5</effort>
+          <velocity>4.4505895926</velocity>
+        </limit>
+        <dynamics>
+          <damping>0.0003</damping>
+          <friction>0.046</friction>
+          <spring_reference>0.0000456</spring_reference>
+          <spring_stiffness>0.0000123</spring_stiffness>
+        </dynamics>
+      </axis>
+    </joint>
+    <link name='r_knee_link'>
+      <pose relative_to='r_knee'>0 0 0 0 -0 0</pose>
+      <inertial>
+        <pose>0 0 0 0 -0 0</pose>
+        <mass>0.0703</mass>
+        <inertia>
+          <ixx>3.3744e-4</ixx>
+          <ixy>0</ixy>
+          <ixz>0</ixz>
+          <iyy>3.3744e-4</iyy>
+          <iyz>0</iyz>
+          <izz>3.3744e-4</izz>
+        </inertia>
+      </inertial>
+      <collision name='r_knee_link_collision'>
+        <pose>0 0 -0.093 0 0 -1.5708</pose>
+        <geometry>
+          <mesh>
+            <scale>0.001 0.001 0.001</scale>
+            <uri>file://darwin_op/meshes/collision/geo_op_collide_right_shin.stl</uri>
+          </mesh>
+        </geometry>
+        <surface>
+          <contact>
+            <ode/>
+          </contact>
+          <friction>
+            <ode>
+              <mu>0.6</mu>
+              <mu2>0.7</mu2>
+              <slip1>0.045</slip1>
+              <slip2>0.0001</slip2>
+            </ode>
+          </friction>
+        </surface>
+      </collision>
+      <visual name='r_knee_link_visual'>
+        <pose>0 0 -0.093 0 0 -1.5708</pose>
+        <geometry>
+          <mesh>
+            <scale>0.001 0.001 0.001</scale>
+            <uri>file://darwin_op/meshes/visual/geo_op_right_shin.dae</uri>
+          </mesh>
+        </geometry>
+        <material>
+          <ambient>0.1 0.1 0.1</ambient>
+          <diffuse>0.5 0.5 0.5</diffuse>
+        </material>
+        <cast_shadows>1</cast_shadows>
+      </visual>
+      <gravity>1</gravity>
+      <velocity_decay/>
+      <self_collide>1</self_collide>
+    </link>
+    <joint name='r_ank_pitch' type='revolute'>
+      <pose relative_to='r_knee_link'>0 0 -0.093 0 -0 0</pose>
+      <parent>r_knee_link</parent>
+      <child>r_ank_pitch_link</child>
+      <axis>
+        <xyz>0 1 0</xyz>
+        <limit>
+          <lower>-2.61799</lower>
+          <upper>2.61799</upper>
+          <effort>2.5</effort>
+          <velocity>4.4505895926</velocity>
+        </limit>
+        <dynamics>
+          <damping>0.0003</damping>
+          <friction>0.046</friction>
+          <spring_reference>0.0000456</spring_reference>
+          <spring_stiffness>0.0000123</spring_stiffness>
+        </dynamics>
+      </axis>
+    </joint>
+    <link name='r_ank_pitch_link'>
+      <pose relative_to='r_ank_pitch'>0 0 0 0 -0 0</pose>
+      <inertial>
+        <pose>-0.02 0 0 0 -0 0</pose>
+        <mass>0.167</mass>
+        <inertia>
+          <ixx>0.682e-4</ixx>
+          <ixy>0</ixy>
+          <ixz>0</ixz>
+          <iyy>0.682e-4</iyy>
+          <iyz>0</iyz>
+          <izz>0.682e-4</izz>
+        </inertia>
+      </inertial>
+      <collision name='r_ank_pitch_link_collision'>
+        <pose>0 0 0 0 0 -1.5708</pose>
+        <geometry>
+          <mesh>
+            <scale>0.001 0.001 0.001</scale>
+            <uri>file://darwin_op/meshes/collision/geo_op_collide_right_ankle.stl</uri>
+          </mesh>
+        </geometry>
+        <surface>
+          <contact>
+            <ode/>
+          </contact>
+          <friction>
+            <ode>
+              <mu>0.6</mu>
+              <mu2>0.7</mu2>
+              <slip1>0.045</slip1>
+              <slip2>0.0001</slip2>
+            </ode>
+          </friction>
+        </surface>
+      </collision>
+      <visual name='r_ank_pitch_link_visual'>
+        <pose>0 0 0 0 0 -1.5708</pose>
+        <geometry>
+          <mesh>
+            <scale>0.001 0.001 0.001</scale>
+            <uri>file://darwin_op/meshes/visual/geo_op_right_ankle.dae</uri>
+          </mesh>
+        </geometry>
+        <material>
+          <ambient>0.1 0.1 0.1</ambient>
+          <diffuse>0.5 0.5 0.5</diffuse>
+        </material>
+        <cast_shadows>1</cast_shadows>
+      </visual>
+      <gravity>1</gravity>
+      <velocity_decay/>
+      <self_collide>1</self_collide>
+    </link>
+    <joint name='r_ank_roll' type='revolute'>
+      <pose relative_to='r_ank_pitch_link'>0 0 0 0 -0 0</pose>
+      <parent>r_ank_pitch_link</parent>
+      <child>r_ank_roll_link</child>
+      <axis>
+        <xyz>1 0 0</xyz>
+        <limit>
+          <lower>-2.61799</lower>
+          <upper>2.61799</upper>
+          <effort>2.5</effort>
+          <velocity>4.4505895926</velocity>
+        </limit>
+        <dynamics>
+          <damping>0.0003</damping>
+          <friction>0.046</friction>
+          <spring_reference>0.0000456</spring_reference>
+          <spring_stiffness>0.0000123</spring_stiffness>
+        </dynamics>
+      </axis>
+    </joint>
+    <link name='r_ank_roll_link'>
+      <pose relative_to='r_ank_roll'>0 0 0 0 -0 0</pose>
+      <inertial>
+        <pose>0 0 0 0 -0 0</pose>
+        <mass>0.0794</mass>
+        <inertia>
+          <ixx>0.986e-4</ixx>
+          <ixy>0</ixy>
+          <ixz>0</ixz>
+          <iyy>0.986e-4</iyy>
+          <iyz>0</iyz>
+          <izz>0.986e-4</izz>
+        </inertia>
+      </inertial>
+      <collision name='r_ank_roll_link_collision'>
+        <pose>0 0 0 0 0 -1.5708</pose>
+        <geometry>
+          <mesh>
+            <scale>0.001 0.001 0.001</scale>
+            <uri>file://darwin_op/meshes/collision/geo_op_collide_right_foot.stl</uri>
+          </mesh>
+        </geometry>
+        <surface>
+          <contact>
+            <ode>
+              <kp>0.12</kp>
+              <kd>0.1</kd>
+              <min_depth>0.01</min_depth>
+            </ode>
+          </contact>
+          <friction>
+            <ode>
+              <mu>0.6</mu>
+              <mu2>0.7</mu2>
+              <slip1>0.045</slip1>
+              <slip2>0.0001</slip2>
+            </ode>
+          </friction>
+        </surface>
+        <max_contacts>1</max_contacts>
+      </collision>
+      <visual name='r_ank_roll_link_visual'>
+        <pose>0 0 0 0 0 -1.5708</pose>
+        <geometry>
+          <mesh>
+            <scale>0.001 0.001 0.001</scale>
+            <uri>file://darwin_op/meshes/visual/geo_op_right_foot.dae</uri>
+          </mesh>
+        </geometry>
+        <material>
+          <ambient>0.1 0.1 0.1</ambient>
+          <diffuse>0.5 0.5 0.5</diffuse>
+        </material>
+        <cast_shadows>1</cast_shadows>
+      </visual>
+      <gravity>1</gravity>
+      <velocity_decay/>
+      <self_collide>1</self_collide>
+    </link>
+    <joint name='r_sho_pitch' type='revolute'>
+      <pose relative_to='base_link'>0 -0.0575 0 0 -0 0</pose>
+      <parent>base_link</parent>
+      <child>r_sho_pitch_link</child>
+      <axis>
+        <xyz>0 1 0</xyz>
+        <limit>
+          <lower>-2.61799</lower>
+          <upper>2.61799</upper>
+          <effort>2.5</effort>
+          <velocity>4.4505895926</velocity>
+        </limit>
+        <dynamics>
+          <damping>0.0003</damping>
+          <friction>0.046</friction>
+          <spring_reference>0.0000456</spring_reference>
+          <spring_stiffness>0.0000123</spring_stiffness>
+        </dynamics>
+      </axis>
+    </joint>
+    <link name='r_sho_pitch_link'>
+      <pose relative_to='r_sho_pitch'>0 0 0 0 -0 0</pose>
+      <inertial>
+        <pose>0 0 0 0 -0 0</pose>
+        <mass>0.0259</mass>
+        <inertia>
+          <ixx>1e-5</ixx>
+          <ixy>0</ixy>
+          <ixz>0</ixz>
+          <iyy>1e-5</iyy>
+          <iyz>0</iyz>
+          <izz>1e-5</izz>
+        </inertia>
+      </inertial>
+      <collision name='r_sho_pitch_link_collision'>
+        <pose>0 0 0 0 0 -1.5708</pose>
+        <geometry>
+          <mesh>
+            <scale>0.001 0.001 0.001</scale>
+            <uri>file://darwin_op/meshes/collision/geo_op_collide_right_shoulder.stl</uri>
+          </mesh>
+        </geometry>
+        <surface>
+          <contact>
+            <ode/>
+          </contact>
+          <friction>
+            <ode>
+              <mu>0.6</mu>
+              <mu2>0.7</mu2>
+              <slip1>0.045</slip1>
+              <slip2>0.0001</slip2>
+            </ode>
+          </friction>
+        </surface>
+      </collision>
+      <visual name='r_sho_pitch_link_visual'>
+        <pose>0 0 0 0 0 -1.5708</pose>
+        <geometry>
+          <mesh>
+            <scale>0.001 0.001 0.001</scale>
+            <uri>file://darwin_op/meshes/visual/geo_op_right_shoulder.dae</uri>
+          </mesh>
+        </geometry>
+        <material>
+          <ambient>0.1 0.1 0.1</ambient>
+          <diffuse>0.5 0.5 0.5</diffuse>
+        </material>
+        <cast_shadows>1</cast_shadows>
+      </visual>
+      <gravity>1</gravity>
+      <velocity_decay/>
+      <self_collide>0</self_collide>
+    </link>
+    <joint name='r_sho_roll' type='revolute'>
+      <pose relative_to='r_sho_pitch_link'>0 -0.0245 -0.016 -0.785398 0 0</pose>
+      <parent>r_sho_pitch_link</parent>
+      <child>r_sho_roll_link</child>
+      <axis>
+        <xyz>1 0 0</xyz>
+        <limit>
+          <lower>-2.61799</lower>
+          <upper>2.61799</upper>
+          <effort>2.5</effort>
+          <velocity>4.4505895926</velocity>
+        </limit>
+        <dynamics>
+          <damping>0.0003</damping>
+          <friction>0.046</friction>
+          <spring_reference>0.0000456</spring_reference>
+          <spring_stiffness>0.0000123</spring_stiffness>
+        </dynamics>
+      </axis>
+    </joint>
+    <link name='r_sho_roll_link'>
+      <pose relative_to='r_sho_roll'>0 0 0 0 -0 0</pose>
+      <inertial>
+        <pose>0 0 0 0 -0 0</pose>
+        <mass>0.168</mass>
+        <inertia>
+          <ixx>4.536e-4</ixx>
+          <ixy>0</ixy>
+          <ixz>0</ixz>
+          <iyy>4.536e-4</iyy>
+          <iyz>0</iyz>
+          <izz>4.536e-4</izz>
+        </inertia>
+      </inertial>
+      <collision name='r_sho_roll_link_collision'>
+        <pose>0 0 0 0 0 -1.5708</pose>
+        <geometry>
+          <mesh>
+            <scale>0.001 0.001 0.001</scale>
+            <uri>file://darwin_op/meshes/collision/geo_op_collide_right_upper-arm.stl</uri>
+          </mesh>
+        </geometry>
+        <surface>
+          <contact>
+            <ode/>
+          </contact>
+          <friction>
+            <ode>
+              <mu>0.6</mu>
+              <mu2>0.7</mu2>
+              <slip1>0.045</slip1>
+              <slip2>0.0001</slip2>
+            </ode>
+          </friction>
+        </surface>
+      </collision>
+      <visual name='r_sho_roll_link_visual'>
+        <pose>0 0 0 0 0 -1.5708</pose>
+        <geometry>
+          <mesh>
+            <scale>0.001 0.001 0.001</scale>
+            <uri>file://darwin_op/meshes/visual/geo_op_right_upper-arm.dae</uri>
+          </mesh>
+        </geometry>
+        <material>
+          <ambient>0.1 0.1 0.1</ambient>
+          <diffuse>0.5 0.5 0.5</diffuse>
+        </material>
+        <cast_shadows>1</cast_shadows>
+      </visual>
+      <gravity>1</gravity>
+      <velocity_decay/>
+      <self_collide>1</self_collide>
+    </link>
+    <joint name='r_el' type='revolute'>
+      <pose relative_to='r_sho_roll_link'>0.016 0 -0.06 0 -1.5708 0</pose>
+      <parent>r_sho_roll_link</parent>
+      <child>r_el_link</child>
+      <axis>
+        <xyz>0 1 0</xyz>
+        <limit>
+          <lower>-2.61799</lower>
+          <upper>2.61799</upper>
+          <effort>2.5</effort>
+          <velocity>4.4505895926</velocity>
+        </limit>
+        <dynamics>
+          <damping>0.0003</damping>
+          <friction>0.046</friction>
+          <spring_reference>0.0000456</spring_reference>
+          <spring_stiffness>0.0000123</spring_stiffness>
+        </dynamics>
+      </axis>
+    </joint>
+    <link name='r_el_link'>
+      <pose relative_to='r_el'>0 0 0 0 -0 0</pose>
+      <inertial>
+        <pose>0 0 0 0 -0 0</pose>
+        <mass>0.0592</mass>
+        <inertia>
+          <ixx>2.38e-4</ixx>
+          <ixy>0</ixy>
+          <ixz>0</ixz>
+          <iyy>2.38e-4</iyy>
+          <iyz>0</iyz>
+          <izz>2.38e-4</izz>
+        </inertia>
+      </inertial>
+      <collision name='r_el_link_collision'>
+        <pose>0 0 0 0 0 -1.5708</pose>
+        <geometry>
+          <mesh>
+            <scale>0.001 0.001 0.001</scale>
+            <uri>file://darwin_op/meshes/collision/geo_op_collide_right_lower-arm.stl</uri>
+          </mesh>
+        </geometry>
+      </collision>
+      <visual name='r_el_link_visual'>
+        <pose>0 0 0 0 0 -1.5708</pose>
+        <geometry>
+          <mesh>
+            <scale>0.001 0.001 0.001</scale>
+            <uri>file://darwin_op/meshes/visual/geo_op_right_lower-arm.dae</uri>
+          </mesh>
+        </geometry>
+        <material>
+          <ambient>0.1 0.1 0.1</ambient>
+          <diffuse>0.5 0.5 0.5</diffuse>
+        </material>
+        <cast_shadows>1</cast_shadows>
+      </visual>
+      <self_collide>1</self_collide>
+    </link>
+  </model>
+</sdf>
