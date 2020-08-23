@@ -1,0 +1,39 @@
+<?xml version='1.0'?>
+
+<sdf version='1.6'>
+  <model name="ground_plane">
+    <static>true</static>
+    <!-- To avoid overlapping with the grid -->
+    <pose>0 0 -0.00001 0 0 0</pose>
+    <link name="ground_plane_link">
+      <collision name="ground_plane_collision">
+        <geometry>
+          <plane>
+            <normal>0 0 1</normal>
+            <size>100 100</size>
+          </plane>
+        </geometry>
+        <surface>
+          <bounce>
+            <restitution_coefficient>0.1</restitution_coefficient>
+            <threshold>0.001</threshold>
+          </bounce>
+        </surface>
+      </collision>
+      <visual name="ground_plane_visual">
+        <geometry>
+          <plane>
+            <normal>0 0 1</normal>
+            <size>100 100</size>
+          </plane>
+        </geometry>
+        <material>
+          <ambient>0.5 0.8 0.5 1</ambient>
+          <diffuse>0.8 0.85 0.8 1</diffuse>
+          <specular>0.5 0.5 0.5 1</specular>
+        </material>
+      </visual>
+    </link>
+  </model>
+</sdf>
+
