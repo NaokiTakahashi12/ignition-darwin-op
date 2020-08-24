@@ -1,0 +1,48 @@
+<?xml version="1.0"?>
+
+<!--
+
+Usage
+```shell
+$ ign launch /worlds/darwin_op_factory.ign x_pos:=0 y_pos:=1 z_pos:=0.7
+```
+
+Default value
++ x_pos = 0
++ y_pos = 0
++ z_pos = 0.6
+
+-->
+
+<%
+  if !defined?(x_pos) || x_pos == nil || x_pos.empty?
+    x_pos = "0"
+  end
+%>
+<%
+  if !defined?(y_pos) || y_pos == nil || y_pos.empty?
+    y_pos = "0"
+  end
+%>
+<%
+  if !defined?(z_pos) || z_pos == nil || z_pos.empty?
+    z_pos = "0.6"
+  end
+%>
+
+<ignition version="1.0">
+  <plugin
+    filename="ignition-launch-gazebo-factory"
+    name="ignition::launch::GazeboFactory">
+    <spawn>
+      <name>darwin_op</name>
+      <allow_renaming>true</allow_renaming>
+      <pose><%= x_pos %> <%= y_pos %> <%= z_pos %> 0 0 0</pose>
+      <sdf version="1.6">
+        <include>
+          <uri>darwin_op_with_joint_controller</uri>
+        </include>
+      </sdf>
+    </spawn>
+  </plugin>
+</ignition>
