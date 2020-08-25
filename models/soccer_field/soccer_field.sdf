@@ -1,0 +1,33 @@
+<?xml version='1.0'?>
+
+<sdf version='1.6'>
+  <model name="soccer_field">
+    <static>true</static>
+    <link name="soccer_field_link">
+      <pose>0 0 0 0 0 1.57</pose>
+      <collision name="soccer_field_collision">
+        <geometry>
+          <mesh>
+            <scale>0.3259 0.3259 0.3259</scale>
+            <uri>file://soccer_field/meshes/collision/Soccer_Field.stl</uri>
+          </mesh>
+        </geometry>
+        <surface>
+          <bounce>
+            <restitution_coefficient>0.1</restitution_coefficient>
+            <threshold>0.005</threshold>
+          </bounce>
+        </surface>
+      </collision>
+      <visual name="soccer_field_visual">
+        <geometry>
+          <mesh>
+            <scale>0.3259 0.3259 0.3259</scale>
+            <uri>file://soccer_field/meshes/visual/Soccer_Field.dae</uri>
+          </mesh>
+        </geometry>
+      </visual>
+    </link>
+  </model>
+</sdf>
+
