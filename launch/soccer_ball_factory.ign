@@ -1,0 +1,35 @@
+<?xml version="1.0"?>
+
+<%
+  if !defined?(x_pos) || x_pos == nil || x_pos.empty?
+    x_pos = "0"
+  end
+%>
+<%
+  if !defined?(y_pos) || y_pos == nil || y_pos.empty?
+    y_pos = "0"
+  end
+%>
+<%
+  if !defined?(z_pos) || z_pos == nil || z_pos.empty?
+    z_pos = "0.6"
+  end
+%>
+
+<ignition version="1.0">
+  <plugin
+    filename="ignition-launch-gazebo-factory"
+    name="ignition::launch::GazeboFactory">
+    <spawn>
+      <name>soccer_ball</name>
+      <allow_renaming>true</allow_renaming>
+      <pose><%= x_pos %> <%= y_pos %> <%= z_pos %> 0 0 0</pose>
+      <sdf version="1.6">
+        <include>
+          <uri>soccer_ball_size_1</uri>
+        </include>
+      </sdf>
+    </spawn>
+  </plugin>
+</ignition>
+
