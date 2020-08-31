@@ -1,0 +1,30 @@
+version: '2.4'
+
+services:
+  resource:
+    image: busybox
+    volumes:
+      - ./launch:/launch:ro
+      - ./models:/models:ro
+      - ./worlds:/worlds:ro
+      - ./src:/src:rw
+
+  citadel-bionic-dev:
+    image: naokitakahashi12/ignition:citadel-devel-cudagl-10.2-bionic
+    runtime: nvidia
+    network_mode: "host"
+    tty: true
+    env_file:
+      - environment_files/nvidia_common.env
+      - environment_files/xwindow_common.env
+      - environment_files/ignition_common.env
+    volumes:
+      - /tmp/.X11-unix:/tmp/.X11-unix:rw
+      - ~/.Xauthority:/root/.Xauthority:rw
+      - ign:/root/.ignition
+    volumes_from:
+      - resource
+    working_dir: /ign_ws/install/share/ignition/ignition-gazebo3/worlds
+
+volumes:
+  ign:
