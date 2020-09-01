@@ -1,0 +1,12 @@
+*.out
+*.a
+*.dylib
+*.so
+.ninja*
+*.ninja
+html
+cmake_install.cmake
+CMakeFiles
+CMakeCache.txt
+Makefile
+build
